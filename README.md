@@ -1,3 +1,3 @@
-# Algorithm Lab
+# Algorithm
 
-Now problems come from HDOJ
+Some demos for practice
