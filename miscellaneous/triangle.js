@@ -9,7 +9,9 @@
 require('../common/base');
 
 var inputs = utils.createInputs({
-    length : 60
+    length : 100
 });
 
-logger.arr(inputs, 5);
+// 此题有复杂度为O(nlogn)的算法
+
+// to be continue
