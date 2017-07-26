@@ -14,27 +14,27 @@
  countChange(11, [5,7]) //  => 0
  */
 
-var countChange = function(money, coins) {
-    let amounts = 0;
+var countChange2 = function(money, coins) {
     let c = coins.sort((a, b)=>{return a<b;});
+    let s = new Set();
 
-    function divide(money){
+    function divide(money, deep){
         for(let i=0; i<c.length; i++){
             if(money === c[i]){
-                amounts++;
-
-                break;
+                s.add(deep);
             }else if(money > c[i]){
-                divide(money - c[i]);
+                divide(money - c[i], deep + 1);
             }
         }
 
         return 0;
     }
 
-    divide(money);
+    divide(money, 1);
 
-    return amounts;
+    return s.size;
 };
 
+console.log(countChange(4, [1,2]));
 console.log(countChange(10, [5,2,3]));
+console.log(countChange(11, [5,7]));
