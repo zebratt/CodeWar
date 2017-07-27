@@ -14,16 +14,41 @@
  countChange(11, [5,7]) //  => 0
  */
 
-/*var countChange = function(money, coins) {
-    let c = coins.sort((a, b)=>{return a<b;});
-    let amount = 0;
+var desc = function(a, b){
+    return a < b;
+};
 
-    function divide(money){
-        for(let i=0; i<c.length; i++){
-            if(money === c[i]){
+var countChange = function (money, coins) {
+    let c = coins.sort(desc);
+    let amount = 0;
+    let m = new Map();
+
+    function divide(money, path) {
+        console.log(path);
+        let newPath = '';
+
+        for (let i = 0; i < c.length; i++) {
+            if (path) {
+                let arr = path.split('-');
+
+                arr.push(c[i]);
+
+                newPath = arr.sort(desc).join('-');
+            } else {
+                newPath = String(c[i]);
+            }
+
+            if (money === c[i]) {
                 amount++;
-            }else if(money > c[i]){
-                divide(money - c[i]);
+                m.set(newPath, true);
+            } else if (money > c[i]) {
+                if (m.has(newPath)) {
+                    if (m.get(newPath)) {
+                        return amount++;
+                    }
+                }
+
+                divide(money - c[i], newPath);
             }
         }
 
@@ -33,18 +58,8 @@
     divide(money);
 
     return amount;
-};*/
-
-var countChange = function(money, coins){
-    let c = coins.sort((a, b)=>{return a<b;});
-
-    function add(){
-
-    }
-
-    add();
 };
 
-console.log(countChange(4, [1,2]));
-console.log(countChange(10, [5,2,3]));
-console.log(countChange(11, [5,7]));
+//console.log(countChange(4, [1,2]));
+console.log('result:', countChange(10, [5,2,3]));
+//console.log(countChange(11, [5,7]));
