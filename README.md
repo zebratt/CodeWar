@@ -1,3 +1,3 @@
-# Algorithm
+# CodeWar 
 
-Some demos for practice
+Problem solutions for CodeWar.
