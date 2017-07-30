@@ -20,46 +20,47 @@ var desc = function(a, b){
 
 var countChange = function (money, coins) {
     let c = coins.sort(desc);
-    let amount = 0;
     let m = new Map();
 
-    function divide(money, path) {
-        console.log(path);
-        let newPath = '';
+    function minus(money){
+        if(money < 0){
+            return false;
+        }
 
-        for (let i = 0; i < c.length; i++) {
-            if (path) {
-                let arr = path.split('-');
+        if(money === 0){
+            return new Set();
+        }
 
-                arr.push(c[i]);
+        let s = new Set();
 
-                newPath = arr.sort(desc).join('-');
-            } else {
-                newPath = String(c[i]);
-            }
+        for(let i=0; i<c.length; i++){
+            let res = m.get(money - c[i]) || minus(money - c[i]);
 
-            if (money === c[i]) {
-                amount++;
-                m.set(newPath, true);
-            } else if (money > c[i]) {
-                if (m.has(newPath)) {
-                    if (m.get(newPath)) {
-                        return amount++;
-                    }
+            if(res){
+                let items = Array.from(res);
+
+                if(!items.length){
+                    s.add(c[i].toString());
+                }else{
+                    items.forEach((el)=>{
+                        let cs = el.split(',');
+
+                        cs.push(c[i]);
+
+                        s.add(cs.sort(desc).join(','));
+                    });
                 }
-
-                divide(money - c[i], newPath);
             }
         }
 
-        return 0;
+        m.set(money, s.size > 0 ? s : false);
+
+        return s.size > 0 ? s : false;
     }
 
-    divide(money);
-
-    return amount;
+    return minus(money).size || 0;
 };
 
-//console.log(countChange(4, [1,2]));
-console.log('result:', countChange(10, [5,2,3]));
-//console.log(countChange(11, [5,7]));
+console.log(countChange(4, [1,2]));
+console.log(countChange(10, [5,2,3]));
+console.log(countChange(11, [5,7]));
