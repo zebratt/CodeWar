@@ -24,17 +24,20 @@ var countChange = function (money, coins) {
 
     function minus(money){
         if(money < 0){
+            m.set(money, false);
             return false;
         }
 
         if(money === 0){
+            m.set(money, new Set());
             return new Set();
         }
 
         let s = new Set();
 
         for(let i=0; i<c.length; i++){
-            let res = m.get(money - c[i]) || minus(money - c[i]);
+            let mapRes = m.get(money - c[i]);
+            let res = mapRes !== undefined ? mapRes : minus(money - c[i]); 
 
             if(res){
                 let items = Array.from(res);
@@ -57,10 +60,12 @@ var countChange = function (money, coins) {
 
         return s.size > 0 ? s : false;
     }
-
-    return minus(money).size || 0;
+    
+    let result = minus(money).size;  
+    
+    return result || 0;
 };
 
-console.log(countChange(4, [1,2]));
-console.log(countChange(10, [5,2,3]));
-console.log(countChange(11, [5,7]));
+//console.log(countChange(4, [1,2]));
+console.log(countChange(100, [5,2,3]));
+//console.log(countChange(11, [5,7]));
