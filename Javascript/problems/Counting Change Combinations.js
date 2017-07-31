@@ -15,7 +15,7 @@
  */
 
 var desc = function(a, b){
-    return a < b;
+    return b-a;
 };
 
 var countChange = function (money, coins) {
