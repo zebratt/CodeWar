@@ -14,11 +14,9 @@
  countChange(11, [5,7]) //  => 0
  */
 
-var desc = function(a, b){
-    return b-a;
-};
+const desc = (a,b)=>b-a;
 
-var countChange = function (money, coins) {
+const countChange = function (money, coins) {
     let c = coins.sort(desc);
     let m = new Map();
 
@@ -61,11 +59,11 @@ var countChange = function (money, coins) {
         return s.size > 0 ? s : false;
     }
     
-    let result = minus(money).size;  
-    
+    let result = minus(money).size;
+
     return result || 0;
 };
 
 //console.log(countChange(4, [1,2]));
-console.log(countChange(100, [5,2,3]));
+console.log(countChange(25, [5,2,3]));
 //console.log(countChange(11, [5,7]));
